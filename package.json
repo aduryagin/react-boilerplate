@@ -1,0 +1,22 @@
+{
+  "name": "react-boilerplate",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.32",
+    "@babel/core": "^7.0.0-beta.32",
+    "@babel/polyfill": "^7.0.0-beta.32",
+    "@babel/preset-env": "^7.0.0-beta.32",
+    "@babel/preset-stage-2": "^7.0.0-beta.32",
+    "babel-loader": "^7.1.2",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "react": "^16.1.0"
+  },
+  "scripts": {
+    "start": "babel-node tools/start",
+    "build": "babel-node tools/build --release"
+  }
+}
