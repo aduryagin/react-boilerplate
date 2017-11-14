@@ -1,10 +1,18 @@
 import webpack from 'webpack';
+import path from 'path';
+import clean from './clean';
 import webpackConfig from './webpack.config';
 
-webpack(webpackConfig).run((err, stats) => {
-  if (err) {
-    return console.error(err);
-  }
+const compile = () => {
+  webpack(webpackConfig).run((err, stats) => {
+    if (err) {
+      return console.error(err);
+    }
+  
+    console.info(stats.toString(webpackConfig[0].stats));
+  });
+}
 
-  console.info(stats.toString(webpackConfig[0].stats));
-});
+// Remove all old files and start the compiler
+
+clean(path.resolve(__dirname, '../build/js/*.js'), {}, compile);

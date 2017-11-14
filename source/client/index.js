@@ -1,5 +1,13 @@
-import '@babel/polyfill';
+import print from './print';
 
-const a = {a:112};
+const printToHTML = (text) => {
+  document.getElementById('test').innerHTML = text || print;
+}
 
-console.log({...a});
+printToHTML();
+
+if (module.hot) {
+  module.hot.accept('./print.js', () => {
+    printToHTML(require('./print').default);
+  });
+}

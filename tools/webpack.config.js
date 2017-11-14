@@ -1,17 +1,20 @@
 import path from 'path';
+import webpack from 'webpack';
 
 const isDebug = !process.argv.includes('--release');
 
 const commonConfig = {
   output: {
-    publicPath: '/assets/',
-    path: path.resolve(__dirname, '../build/assets')
+    publicPath: '/js/',
+    path: path.resolve(__dirname, '../build/js')
   },
 }
 
 const clientConfig = {
+  name: 'client',
+
   entry: {
-    client: path.resolve(__dirname, '../source/client/index'),
+    client: [ path.resolve(__dirname, '../source/client/index') ],
   },
 
   target: 'web',
@@ -30,7 +33,7 @@ const clientConfig = {
               browsers: '> 1%, not ie 11'
             },
             modules: false,
-            useBuiltIns: 'entry',
+            useBuiltIns: 'usage',
             loose: true,
             forceAllTransforms: !isDebug,
             debug: isDebug
@@ -48,6 +51,8 @@ const clientConfig = {
 };
 
 const serverConfig = {
+  name: 'server',
+
   entry: {
     server: path.resolve(__dirname, '../source/server/index')
   },
