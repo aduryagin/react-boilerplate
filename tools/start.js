@@ -41,14 +41,14 @@ const start = async () => {
 
   const multiCompiler = webpack(webpackConfig, () => {
     const clientCompiler = multiCompiler.compilers.find(compiler => compiler.name === 'client');
-    
+
     // Get files from the memory
-    
+
     server.use(webpackDevMiddleware(clientCompiler, {
       watchOptions: {},
       publicPath: clientConfig.output.publicPath
     }));
-    
+
     // Connect a browser client to a server through WS (server config)
     
     server.use(webpackHotMiddleware(clientCompiler));
