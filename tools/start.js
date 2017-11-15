@@ -39,25 +39,25 @@ const start = async () => {
 
   // Start the compilation process
 
-  const multiCompiler = webpack(webpackConfig, () => {
-    const clientCompiler = multiCompiler.compilers.find(compiler => compiler.name === 'client');
+  const multiCompiler = webpack(webpackConfig);
+  const clientCompiler = multiCompiler.compilers.find(compiler => compiler.name === 'client');
+  const serverCompiler = multiCompiler.compilers.find(compiler => compiler.name === 'server');
 
-    // Get files from the memory
+  // Get files from the memory
 
-    server.use(webpackDevMiddleware(clientCompiler, {
-      watchOptions: {},
-      publicPath: clientConfig.output.publicPath
-    }));
+  server.use(webpackDevMiddleware(clientCompiler, {
+    watchOptions: {},
+    publicPath: clientConfig.output.publicPath
+  }));
 
-    // Connect a browser client to a server through WS (server config)
-    
-    server.use(webpackHotMiddleware(clientCompiler));
+  // Connect a browser client to a server through WS (server config)
   
+  server.use(webpackHotMiddleware(clientCompiler));
+
+  serverCompiler.run(() => {
     const app = require('../build/js/server').default;
-    server.use((req, res) => {
-      app.handle(req, res);
-    });
-    
+    server.use((req, res) => app.handle(req, res));
+
     browserSync.create().init({
       server: path.resolve(__dirname, '../build/'),
       logPrefix: 'React boilerplate',

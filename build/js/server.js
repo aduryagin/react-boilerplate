@@ -21,7 +21,7 @@ module.exports =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "31af9a7948e6953f0820"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "339b5f2675dd5d6f8bbe"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -693,7 +693,7 @@ module.exports =
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Users/aiduryagin/Desktop/Projects/react-boilerplate/source/client/App.js";
+var _jsxFileName = "/home/aiduryagin/Desktop/Projects/site/source/client/App.js";
 
 
 const App = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
@@ -722,7 +722,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react__ = __webpack_require__("react");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__client_App__ = __webpack_require__("./source/client/App.js");
-var _jsxFileName = "/Users/aiduryagin/Desktop/Projects/react-boilerplate/source/server/index.js";
+var _jsxFileName = "/home/aiduryagin/Desktop/Projects/site/source/server/index.js";
 
 
 
