@@ -59,16 +59,15 @@ const start = async () => {
     });
     
     browserSync.create().init({
-        server: path.resolve(__dirname, '../build/'),
-        logPrefix: 'React boilerplate',
-        middleware: [server],
-        open: 'local',
-        logLevel: 'info',
-        notify: false,
-        ui: false,
-        online: true,
-      },
-    );
+      server: path.resolve(__dirname, '../build/'),
+      logPrefix: 'React boilerplate',
+      middleware: [server],
+      open: 'local',
+      logLevel: 'info',
+      notify: false,
+      ui: false,
+      online: true,
+    });
   });
 }
 
