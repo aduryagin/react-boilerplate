@@ -1,13 +1,14 @@
-import print from './print';
+import React, { hydrate } from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-const printToHTML = (text) => {
-  document.getElementById('test').innerHTML = text || print;
-}
+const container = document.getElementById('app');
 
-printToHTML();
+ReactDOM.hydrate(<App />, container);
 
 if (module.hot) {
-  module.hot.accept('./print.js', () => {
-    printToHTML(require('./print').default);
+  module.hot.accept('./App.js', () => {
+    const UpdatedApp = require('./App').default;
+    ReactDOM.render(<UpdatedApp />, container);
   });
 }

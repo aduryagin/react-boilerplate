@@ -1,1 +1,0 @@
-export default 'tsdf1232321';

@@ -1,23 +1,23 @@
 import path from 'path';
 import webpack from 'webpack';
+import externals from 'webpack-node-externals';
 
 const isDebug = !process.argv.includes('--release');
 
 const commonConfig = {
   output: {
     publicPath: '/js/',
+    filename: isDebug ? '[name].js' : '[name].[chunkhash:8].js',
+    chunkFilename: isDebug ? 'chunks/[name].chunk.js' : 'chunks/[name].[chunkhash:8].chunk.js',
     path: path.resolve(__dirname, '../build/js')
   },
-}
 
-const clientConfig = {
-  name: 'client',
-
-  entry: {
-    client: [ path.resolve(__dirname, '../source/client/index') ],
-  },
-
-  target: 'web',
+  plugins: [
+    new webpack.DefinePlugin({
+      __DEV__: isDebug,
+      'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+    })
+  ],
 
   module: {
     rules: [{
@@ -41,17 +41,60 @@ const clientConfig = {
           ['@babel/preset-stage-2', {
             useBuiltIns: true,
             loose: true
+          }],
+          ['@babel/preset-react', {
+            useBuiltIns: true,
+            development: isDebug
           }]
         ]
       }
     }]
+  }
+}
+
+const clientConfig = {
+  ...commonConfig,
+  
+  name: 'client',
+  
+  entry: {
+    client: [ path.resolve(__dirname, '../source/client/index') ],
   },
 
-  ...commonConfig
+  target: 'web',
 };
 
 const serverConfig = {
+  ...commonConfig,
+
+  output: {
+    ...commonConfig.output,
+    libraryTarget: 'commonjs2',
+  },
+
   name: 'server',
+  
+  module: {
+    rules: [{
+      ...commonConfig.module.rules[0],
+      options: {
+        ...commonConfig.module.rules[0].options,
+        presets: commonConfig.module.rules[0].options.presets.map(
+          preset => 
+            preset[0] !== '@babel/preset-env'
+            ? preset
+            : ['@babel/preset-env', {
+                targets: {
+                  node: 'current'
+                },
+                modules: false,
+                useBuiltIns: false,
+                debug: false
+              }]
+        )
+      }
+    }]
+  },
 
   entry: {
     server: path.resolve(__dirname, '../source/server/index')
@@ -59,7 +102,9 @@ const serverConfig = {
 
   target: 'node',
 
-  ...commonConfig
+  externals: [externals({
+    importType: 'commonjs2'
+  })]
 }
 
 export default [clientConfig, serverConfig];

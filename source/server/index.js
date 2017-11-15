@@ -1,5 +1,8 @@
 import express from 'express';
 import path from 'path';
+import ReactDOMServer from 'react-dom/server';
+import React from 'react';
+import AppComponent from '../client/App';
 
 const app = express();
 
@@ -7,20 +10,16 @@ app.use(express.static(path.resolve(__dirname, '../../build')));
 
 app.get('*', (req, res, next) => {
   try {
-    res.status(200);
-    res.send(`
-      <!doctype html>
-      <html lang="en">
-      <head>
-      </head>
-      <body>
-        <div id="test"></div>
-        <script src="./js/client.js"></script>  
-      </body>
-      </html>
-    `);
+    res.write(`<!doctype html><html lang="en"><head></head><body><div id="app">`);
+
+    const stream = ReactDOMServer.renderToNodeStream(<AppComponent/>);
+    stream.pipe(res, { end: false });
+    stream.on('end', () => {
+      res.write(`</div><script src="./js/client.js"></script></body></html>`);
+      res.end();
+    });
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
