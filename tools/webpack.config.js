@@ -69,7 +69,7 @@ const serverConfig = {
 
   output: {
     ...commonConfig.output,
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'commonjs',
   },
 
   name: 'server',

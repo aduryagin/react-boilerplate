@@ -19,7 +19,7 @@ const start = async () => {
 
   // Clean js directory
 
-  clean(path.resolve(__dirname, '../build/js/*.js'));
+  clean(path.resolve(__dirname, '../build/js/*'));
 
   const defaultDevPlugins = [
     new webpack.HotModuleReplacementPlugin(),
@@ -52,22 +52,44 @@ const start = async () => {
 
   // Connect a browser client to a server through WS (server config)
   
-  server.use(webpackHotMiddleware(clientCompiler));
+  server.use(webpackHotMiddleware(clientCompiler, { log: false }));
 
-  serverCompiler.run(() => {
-    const app = require('../build/js/server').default;
-    server.use((req, res) => app.handle(req, res));
+  let browserSyncServer;
+  let app;
 
-    browserSync.create().init({
-      server: path.resolve(__dirname, '../build/'),
-      logPrefix: 'React boilerplate',
-      middleware: [server],
-      open: 'local',
-      logLevel: 'info',
-      notify: false,
-      ui: false,
-      online: true,
-    });
+  serverCompiler.watch({
+    aggregateTimeout: 300,
+    poll: 1000,
+    ignored: /node_modules/
+  }, (err, stats) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    if (app) {
+      // Test all loaded modules for updates and, if updates exist, apply them
+
+      app.hot.check(true).then(() => {
+        // browserSyncServer.publicInstance.reload();
+      });
+    }
+
+    if (!browserSyncServer) {
+      app = require('../build/js/server').default;
+      server.use((req, res) => app.handle(req, res));
+  
+      browserSyncServer = browserSync.create().init({
+        server: path.resolve(__dirname, '../build/'),
+        logPrefix: 'React boilerplate',
+        middleware: [server],
+        open: 'local',
+        logLevel: 'info',
+        notify: false,
+        ui: false,
+        online: true,
+      });
+    }
   });
 }
 

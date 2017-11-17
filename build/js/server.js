@@ -1,5 +1,4 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
 /******/ 	function hotDownloadUpdateChunk(chunkId) { // eslint-disable-line no-unused-vars
 /******/ 		var chunk = require("./" + "" + chunkId + "." + hotCurrentHash + ".hot-update.js");
 /******/ 		hotAddUpdateChunk(chunk.id, chunk.modules);
@@ -21,7 +20,7 @@ module.exports =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "339b5f2675dd5d6f8bbe"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "df6420933031e3e4512d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -693,7 +692,7 @@ module.exports =
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/home/aiduryagin/Desktop/Projects/site/source/client/App.js";
+var _jsxFileName = "/Users/aiduryagin/Desktop/Projects/react-boilerplate/source/client/App.js";
 
 
 const App = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
@@ -702,7 +701,7 @@ const App = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("d
     lineNumber: 4
   },
   __self: this
-}, "Hello 123");
+}, "Hello world");
 
 /* harmony default export */ __webpack_exports__["a"] = (App);
 
@@ -722,7 +721,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react__ = __webpack_require__("react");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__client_App__ = __webpack_require__("./source/client/App.js");
-var _jsxFileName = "/home/aiduryagin/Desktop/Projects/site/source/server/index.js";
+var _jsxFileName = "/Users/aiduryagin/Desktop/Projects/react-boilerplate/source/server/index.js";
 
 
 
@@ -732,7 +731,7 @@ const app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
 app.use(__WEBPACK_IMPORTED_MODULE_0_express___default.a.static(__WEBPACK_IMPORTED_MODULE_1_path___default.a.resolve(__dirname, '../../build')));
 app.get('*', (req, res, next) => {
   try {
-    res.write(`<!doctype html><html lang="en"><head></head><body><div id="app">`);
+    res.write(`<!doctype html>${__webpack_require__("./source/server/test.js").default}<html lang="en"><head></head><body><div id="app">`);
     const stream = __WEBPACK_IMPORTED_MODULE_2_react_dom_server___default.a.renderToNodeStream(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__client_App__["a" /* default */], {
       __source: {
         fileName: _jsxFileName,
@@ -751,11 +750,27 @@ app.get('*', (req, res, next) => {
     next(error);
   }
 });
-app.listen(3000, () => {
-  console.info(`The server is running at http://localhost:3000/`);
-});
+
+if (true) {
+  module.hot.accept("./source/server/test.js");
+  app.hot = module.hot;
+} else {
+  app.listen(3000, () => {
+    console.info(`The server is running at http://localhost:3000/`);
+  });
+}
+
 /* harmony default export */ __webpack_exports__["default"] = (app);
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "/"))
+
+/***/ }),
+
+/***/ "./source/server/test.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony default export */ __webpack_exports__["default"] = ('1');
 
 /***/ }),
 
@@ -787,4 +802,4 @@ module.exports = require("react-dom/server");
 
 /***/ })
 
-/******/ });
+/******/ })));

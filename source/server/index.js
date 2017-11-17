@@ -10,7 +10,7 @@ app.use(express.static(path.resolve(__dirname, '../../build')));
 
 app.get('*', (req, res, next) => {
   try {
-    res.write(`<!doctype html><html lang="en"><head></head><body><div id="app">`);
+    res.write(`<!doctype html>${require('./test').default}<html lang="en"><head></head><body><div id="app">`);
 
     const stream = ReactDOMServer.renderToNodeStream(<AppComponent/>);
     stream.pipe(res, { end: false });
@@ -23,8 +23,13 @@ app.get('*', (req, res, next) => {
   }
 });
 
-app.listen(3000, () => {
-  console.info(`The server is running at http://localhost:3000/`);
-});
+if (module.hot) {
+  module.hot.accept('./test');
+  app.hot = module.hot;
+} else {
+  app.listen(3000, () => {
+    console.info(`The server is running at http://localhost:3000/`);
+  });
+}
 
 export default app;
