@@ -8,10 +8,10 @@ const compile = () => {
     if (err) {
       return console.error(err);
     }
-  
-    console.info(stats.toString(webpackConfig[0].stats));
+
+    return console.info(stats.toString(webpackConfig[0].stats));
   });
-}
+};
 
 // Remove all old files and start the compiler
 

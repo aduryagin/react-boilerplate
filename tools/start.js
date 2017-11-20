@@ -24,14 +24,14 @@ const start = () => {
   const defaultDevPlugins = [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
   ];
 
   const clientConfig = webpackConfig.find(config => config.name === 'client');
   const serverConfig = webpackConfig.find(config => config.name === 'server');
 
-  clientConfig.plugins = [ ...clientConfig.plugins, ...defaultDevPlugins];
-  serverConfig.plugins = [ ...serverConfig.plugins, ...defaultDevPlugins];
+  clientConfig.plugins = [...clientConfig.plugins, ...defaultDevPlugins];
+  serverConfig.plugins = [...serverConfig.plugins, ...defaultDevPlugins];
 
   // Connect a browser client to a server through WS (client config)
 
@@ -47,21 +47,21 @@ const start = () => {
 
   server.use(webpackDevMiddleware(clientCompiler, {
     watchOptions: {},
-    publicPath: clientConfig.output.publicPath
+    publicPath: clientConfig.output.publicPath,
   }));
 
   // Connect a browser client to a server through WS (server config)
-  
+
   server.use(webpackHotMiddleware(clientCompiler, { log: false }));
 
   let browserSyncServer;
   let app;
 
-  serverCompiler.watch({
+  return serverCompiler.watch({
     aggregateTimeout: 300,
     poll: 1000,
-    ignored: /node_modules/
-  }, (err, stats) => {
+    ignored: /node_modules/,
+  }, (err) => {
     if (err) {
       console.error(err);
       return;
@@ -77,7 +77,7 @@ const start = () => {
             console.info(`${hmrPrefix}Nothing hot updated.`);
           } else {
             console.info(`${hmrPrefix}Updated modules:`);
-            updatedModules.forEach(moduleId => {
+            updatedModules.forEach((moduleId) => {
               console.info(`${hmrPrefix} ${moduleId}`);
             });
 
@@ -100,7 +100,7 @@ const start = () => {
     if (!browserSyncServer) {
       app = require('../build/js/server').default;
       server.use((req, res) => app.handle(req, res));
-  
+
       browserSyncServer = browserSync.create().init({
         server: path.resolve(__dirname, '../build/'),
         logPrefix: 'React boilerplate',
@@ -113,6 +113,6 @@ const start = () => {
       });
     }
   });
-}
+};
 
 start();

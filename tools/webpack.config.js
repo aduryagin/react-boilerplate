@@ -9,14 +9,14 @@ const commonConfig = {
     publicPath: '/js/',
     filename: isDebug ? '[name].js' : '[name].[chunkhash:8].js',
     chunkFilename: isDebug ? 'chunks/[name].chunk.js' : 'chunks/[name].[chunkhash:8].chunk.js',
-    path: path.resolve(__dirname, '../build/js')
+    path: path.resolve(__dirname, '../build/js'),
   },
 
   plugins: [
     new webpack.DefinePlugin({
       __DEV__: isDebug,
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-    })
+    }),
   ],
 
   module: {
@@ -30,35 +30,35 @@ const commonConfig = {
         presets: [
           ['@babel/preset-env', {
             targets: {
-              browsers: '> 1%, not ie 11'
+              browsers: '> 1%, not ie 11',
             },
             modules: false,
             useBuiltIns: 'usage',
             loose: true,
             forceAllTransforms: !isDebug,
-            debug: isDebug
+            debug: isDebug,
           }],
           ['@babel/preset-stage-2', {
             useBuiltIns: true,
-            loose: true
+            loose: true,
           }],
           ['@babel/preset-react', {
             useBuiltIns: true,
-            development: isDebug
-          }]
-        ]
-      }
-    }]
-  }
-}
+            development: isDebug,
+          }],
+        ],
+      },
+    }],
+  },
+};
 
 const clientConfig = {
   ...commonConfig,
-  
+
   name: 'client',
-  
+
   entry: {
-    client: [ path.resolve(__dirname, '../source/client/index') ],
+    client: [path.resolve(__dirname, '../source/client/index')],
   },
 
   target: 'web',
@@ -73,38 +73,38 @@ const serverConfig = {
   },
 
   name: 'server',
-  
+
   module: {
     rules: [{
       ...commonConfig.module.rules[0],
       options: {
         ...commonConfig.module.rules[0].options,
-        presets: commonConfig.module.rules[0].options.presets.map(
-          preset => 
+        presets:
+          commonConfig.module.rules[0].options.presets.map(preset => (
             preset[0] !== '@babel/preset-env'
-            ? preset
-            : ['@babel/preset-env', {
+              ? preset
+              : ['@babel/preset-env', {
                 targets: {
-                  node: 'current'
+                  node: 'current',
                 },
                 modules: false,
                 useBuiltIns: false,
-                debug: false
+                debug: false,
               }]
-        )
-      }
-    }]
+          )),
+      },
+    }],
   },
 
   entry: {
-    server: path.resolve(__dirname, '../source/server/index')
+    server: path.resolve(__dirname, '../source/server/index'),
   },
 
   target: 'node',
 
   externals: [externals({
-    importType: 'commonjs2'
-  })]
-}
+    importType: 'commonjs2',
+  })],
+};
 
 export default [clientConfig, serverConfig];
