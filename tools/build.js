@@ -15,4 +15,4 @@ const compile = () => {
 
 // Remove all old files and start the compiler
 
-clean(path.resolve(__dirname, '../build/js/*.js'), {}, compile);
+clean(path.resolve(__dirname, '../build/js/**/*'), {}, compile);

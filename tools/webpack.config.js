@@ -1,5 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import externals from 'webpack-node-externals';
 
 const isDebug = !process.argv.includes('--release');
@@ -62,6 +63,17 @@ const clientConfig = {
   },
 
   target: 'web',
+
+  plugins: [
+    ...commonConfig.plugins,
+
+    ...isDebug ? [] : [
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      new UglifyJsPlugin({
+        parallel: true,
+      }), // TODO: source maps
+    ],
+  ],
 };
 
 const serverConfig = {
