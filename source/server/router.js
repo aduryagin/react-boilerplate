@@ -8,7 +8,6 @@ const applicationRouter = Router();
 applicationRouter.get('*', (req, res, next) => {
   try {
     res.write('<!doctype html><html lang="en"><head></head><body><div id="app">');
-
     const stream = ReactDOMServer.renderToNodeStream(<AppComponent />);
     stream.pipe(res, { end: false });
     stream.on('end', () => {

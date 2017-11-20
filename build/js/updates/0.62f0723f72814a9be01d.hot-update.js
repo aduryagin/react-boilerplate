@@ -20,14 +20,13 @@ var _jsxFileName = "/Users/aiduryagin/Desktop/Projects/react-boilerplate/source/
 
 const applicationRouter = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
 applicationRouter.get('*', (req, res, next) => {
-  console.log(3);
-
   try {
-    res.write(`<!doctype html><html lang="en"><head></head><body><div id="app">`);
+    res.write('<!doctype html><html lang="en"><head></head><body><div id="app">');
+    console.log(1);
     const stream = __WEBPACK_IMPORTED_MODULE_1_react_dom_server___default.a.renderToNodeStream(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__client_App__["a" /* default */], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 13
+        lineNumber: 12
       },
       __self: this
     }));
@@ -35,7 +34,7 @@ applicationRouter.get('*', (req, res, next) => {
       end: false
     });
     stream.on('end', () => {
-      res.write(`</div><script src="./js/client.js"></script></body></html>`);
+      res.write('</div><script src="./js/client.js"></script></body></html>');
       res.end();
     });
   } catch (error) {

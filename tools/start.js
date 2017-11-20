@@ -33,6 +33,11 @@ const start = () => {
   clientConfig.plugins = [...clientConfig.plugins, ...defaultDevPlugins];
   serverConfig.plugins = [...serverConfig.plugins, ...defaultDevPlugins];
 
+  // Place for hot files
+
+  serverConfig.output.hotUpdateMainFilename = 'hotUpdates/[hash].hot-update.json';
+  serverConfig.output.hotUpdateChunkFilename = 'hotUpdates/[id].[hash].hot-update.js';
+
   // Connect a browser client to a server through WS (client config)
 
   clientConfig.entry.client.unshift('webpack-hot-middleware/client');

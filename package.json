@@ -31,7 +31,7 @@
     "react-dom": "^16.1.1"
   },
   "scripts": {
-    "start": "babel-node tools/start",
+    "start:dev": "babel-node tools/start",
     "build:release": "babel-node tools/build --release",
     "build": "babel-node tools/build",
     "lint:js": "eslint ."

@@ -1,12 +1,12 @@
 (function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
 /******/ 	function hotDownloadUpdateChunk(chunkId) { // eslint-disable-line no-unused-vars
-/******/ 		var chunk = require("./" + "" + chunkId + "." + hotCurrentHash + ".hot-update.js");
+/******/ 		var chunk = require("./" + "updates/" + chunkId + "." + hotCurrentHash + ".hot-update.js");
 /******/ 		hotAddUpdateChunk(chunk.id, chunk.modules);
 /******/ 	}
 /******/
 /******/ 	function hotDownloadManifest() { // eslint-disable-line no-unused-vars
 /******/ 		try {
-/******/ 			var update = require("./" + "" + hotCurrentHash + ".hot-update.json");
+/******/ 			var update = require("./" + "updates/" + hotCurrentHash + ".hot-update.json");
 /******/ 		} catch(e) {
 /******/ 			return Promise.resolve();
 /******/ 		}
@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8b1e7742a8cfdaae6a87"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f2362c07c0a0edca97b4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -729,12 +729,13 @@ app.use((req, res, next) => {
 
 if (true) {
   module.hot.accept("./source/server/router.js", () => {
+    // eslint-disable-next-line global-require
     router = __webpack_require__("./source/server/router.js").default;
   });
   app.hot = module.hot;
 } else {
   app.listen(3000, () => {
-    console.info(`The server is running at http://localhost:3000/`);
+    console.info('The server is running at http://localhost:3000/');
   });
 }
 
@@ -763,11 +764,11 @@ var _jsxFileName = "/Users/aiduryagin/Desktop/Projects/react-boilerplate/source/
 const applicationRouter = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
 applicationRouter.get('*', (req, res, next) => {
   try {
-    res.write(`<!doctype html><html lang="en"><head></head><body><div id="app">`);
+    res.write('<!doctype html><html lang="en"><head></head><body><div id="app">');
     const stream = __WEBPACK_IMPORTED_MODULE_1_react_dom_server___default.a.renderToNodeStream(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__client_App__["a" /* default */], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 12
+        lineNumber: 11
       },
       __self: this
     }));
@@ -775,7 +776,7 @@ applicationRouter.get('*', (req, res, next) => {
       end: false
     });
     stream.on('end', () => {
-      res.write(`</div><script src="./js/client.js"></script></body></html>`);
+      res.write('</div><script src="./js/client.js"></script></body></html>');
       res.end();
     });
   } catch (error) {
