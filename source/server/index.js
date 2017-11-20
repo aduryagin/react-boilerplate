@@ -11,12 +11,13 @@ app.use((req, res, next) => {
 
 if (module.hot) {
   module.hot.accept('./router', () => {
+    // eslint-disable-next-line global-require
     router = require('./router').default;
   });
   app.hot = module.hot;
 } else {
   app.listen(3000, () => {
-    console.info(`The server is running at http://localhost:3000/`);
+    console.info('The server is running at http://localhost:3000/');
   });
 }
 

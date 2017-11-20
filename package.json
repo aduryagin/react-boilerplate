@@ -34,6 +34,6 @@
     "start": "babel-node tools/start",
     "build:release": "babel-node tools/build --release",
     "build": "babel-node tools/build",
-    "lint:js": "eslint ./**/*.js"
+    "lint:js": "eslint ."
   }
 }

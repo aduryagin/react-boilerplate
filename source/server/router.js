@@ -7,12 +7,12 @@ const applicationRouter = Router();
 
 applicationRouter.get('*', (req, res, next) => {
   try {
-    res.write(`<!doctype html><html lang="en"><head></head><body><div id="app">`);
+    res.write('<!doctype html><html lang="en"><head></head><body><div id="app">');
 
-    const stream = ReactDOMServer.renderToNodeStream(<AppComponent/>);
+    const stream = ReactDOMServer.renderToNodeStream(<AppComponent />);
     stream.pipe(res, { end: false });
     stream.on('end', () => {
-      res.write(`</div><script src="./js/client.js"></script></body></html>`);
+      res.write('</div><script src="./js/client.js"></script></body></html>');
       res.end();
     });
   } catch (error) {
