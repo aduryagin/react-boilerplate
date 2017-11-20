@@ -10,7 +10,7 @@ import webpackConfig from './webpack.config';
 
 let server;
 
-const start = async () => {
+const start = () => {
   if (server) return server;
 
   server = express();
@@ -70,8 +70,30 @@ const start = async () => {
     if (app) {
       // Test all loaded modules for updates and, if updates exist, apply them
 
-      app.hot.check(true).then(() => {
-        // browserSyncServer.publicInstance.reload();
+      const hmrPrefix = '[\x1b[35mHMR\x1b[0m] ';
+      app.hot.check(true).then(updatedModules => {
+        if (updatedModules) {
+          if (updatedModules.length === 0) {
+            console.info(`${hmrPrefix}Nothing hot updated.`);
+          } else {
+            console.info(`${hmrPrefix}Updated modules:`);
+            updatedModules.forEach(moduleId => {
+              console.info(`${hmrPrefix} ${moduleId}`);
+            });
+
+            if (updatedModules.length === 1 && updatedModules[0].includes('server')) {
+              // Reload all browsers if only server was changed
+
+              browserSyncServer.publicInstance.reload();
+            }
+          }
+        }
+      }).catch(error => {
+        if (['abort', 'fail'].includes(app.hot.status())) {
+          console.warn(`${hmrPrefix}Cannot apply update.`);
+        } else {
+          console.warn(`${hmrPrefix}Update failed: ${error.stack || error.message}`);
+        }
       });
     }
 

@@ -20,7 +20,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "df6420933031e3e4512d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8b1e7742a8cfdaae6a87"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -716,26 +716,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__("path");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom_server__ = __webpack_require__("react-dom/server");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom_server___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom_server__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__client_App__ = __webpack_require__("./source/client/App.js");
-var _jsxFileName = "/Users/aiduryagin/Desktop/Projects/react-boilerplate/source/server/index.js";
-
-
-
 
 
 const app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
+
+let router = __webpack_require__("./source/server/router.js").default;
+
 app.use(__WEBPACK_IMPORTED_MODULE_0_express___default.a.static(__WEBPACK_IMPORTED_MODULE_1_path___default.a.resolve(__dirname, '../../build')));
-app.get('*', (req, res, next) => {
+app.use((req, res, next) => {
+  router(req, res, next);
+});
+
+if (true) {
+  module.hot.accept("./source/server/router.js", () => {
+    router = __webpack_require__("./source/server/router.js").default;
+  });
+  app.hot = module.hot;
+} else {
+  app.listen(3000, () => {
+    console.info(`The server is running at http://localhost:3000/`);
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (app);
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "/"))
+
+/***/ }),
+
+/***/ "./source/server/router.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__("express");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom_server__ = __webpack_require__("react-dom/server");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom_server___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom_server__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__("react");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__client_App__ = __webpack_require__("./source/client/App.js");
+var _jsxFileName = "/Users/aiduryagin/Desktop/Projects/react-boilerplate/source/server/router.js";
+
+
+
+
+const applicationRouter = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+applicationRouter.get('*', (req, res, next) => {
   try {
-    res.write(`<!doctype html>${__webpack_require__("./source/server/test.js").default}<html lang="en"><head></head><body><div id="app">`);
-    const stream = __WEBPACK_IMPORTED_MODULE_2_react_dom_server___default.a.renderToNodeStream(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__client_App__["a" /* default */], {
+    res.write(`<!doctype html><html lang="en"><head></head><body><div id="app">`);
+    const stream = __WEBPACK_IMPORTED_MODULE_1_react_dom_server___default.a.renderToNodeStream(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__client_App__["a" /* default */], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 15
+        lineNumber: 12
       },
       __self: this
     }));
@@ -750,27 +782,7 @@ app.get('*', (req, res, next) => {
     next(error);
   }
 });
-
-if (true) {
-  module.hot.accept("./source/server/test.js");
-  app.hot = module.hot;
-} else {
-  app.listen(3000, () => {
-    console.info(`The server is running at http://localhost:3000/`);
-  });
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (app);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "/"))
-
-/***/ }),
-
-/***/ "./source/server/test.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony default export */ __webpack_exports__["default"] = ('1');
+/* harmony default export */ __webpack_exports__["default"] = (applicationRouter);
 
 /***/ }),
 
